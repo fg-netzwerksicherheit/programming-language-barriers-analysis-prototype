@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="create_run_jar" name="Create Runnable Jar.">
+	<!-- Properties -->
+	<property name="debuglevel" value="source,lines,vars" />
+	<property name="target" value="1.7" />
+	<property name="source" value="1.7" />
+
+	<property name="bin" value="bin" />
+	<property name="dist" value="dist" />
+	<property name="lib" value="lib" />
+	<property name="src" value="src" />
+	<property name="test" value="test" />
+
+	<!-- Paths -->
+	<path id="data_producer.classpath">
+		<pathelement location="${lib}/jewelcli-0.6.jar" />
+		<pathelement location="${lib}/data_consumer.jar" />
+	</path>
+
+	<target name="create_run_jar">
+		<delete dir="${bin}" />
+		<mkdir dir="${bin}" />
+
+		<javac srcdir="src" destdir="${bin}" debug="true" debuglevel="${debuglevel}" source="${source}" target="${target}" includeantruntime="false" classpathref="data_producer.classpath" />
+
+		<manifestclasspath property="jar.classpath" jarfile="data_producer.classpath">
+			<classpath refid="data_producer.classpath" />
+		</manifestclasspath>
+
+		<jar destfile="data_producer.jar">
+			<manifest>
+				<attribute name="Main-Class" value="data_producer.DataProducerMainClass" />
+				<attribute name="Class-Path" value="${jar.classpath}" />
+			</manifest>
+			<fileset dir="${bin}" />
+		</jar>
+	</target>
+</project>

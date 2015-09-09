@@ -1,0 +1,13 @@
+http://www.ibm.com/developerworks/java/tutorials/j-jni/j-jni.html
+
+#gvim Sample1.java
+
+javac Sample1.java 
+javah Sample1
+
+#gvim Sample1.c
+
+gcc -fPIC -I/usr/lib/jvm/java-1.7.0/include -I/usr/lib/jvm/java-1.7.0/include/linux -o Sample1.so Sample1.c -shared
+
+java Sample1
+
